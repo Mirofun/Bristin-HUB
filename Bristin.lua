@@ -1,4 +1,3 @@
-
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -8,14 +7,11 @@ local Window = Rayfield:CreateWindow({
    ConfigurationSaving = { Enabled = false }
 })
 
-
 local isAutoOpen = false
 local isAutoBank = false
-local isAutoSell = false
 local openDelay = 1
 local amountToOpen = 1
 local selectedCase = "Free Case"
-
 
 local player = game.Players.LocalPlayer
 local RunService = game:GetService("RunService")
@@ -27,11 +23,9 @@ local walkSpeed = 16
 local flyConnection = nil
 local noclipConnection = nil
 
-
 local function GetRemote()
     return game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent", true)
 end
-
 
 local MainTab = Window:CreateTab("Авто-Кейсы", 4483362458)
 local MainSection = MainTab:CreateSection("Настройки крутки")
@@ -44,7 +38,6 @@ MainTab:CreateSlider({
    CurrentValue = 1,
    Callback = function(Value) 
        openDelay = Value 
-
        if Value < 0.3 then
            Rayfield:Notify({
                Title = "⚠️ ВНИМАНИЕ",
@@ -82,7 +75,6 @@ MainTab:CreateToggle({
        end
    end,
 })
-
 
 local CaseTab = Window:CreateTab("Выбор Кейса", 4483362458)
 CaseTab:CreateSection("Выбери кейс из списка:")
@@ -135,7 +127,6 @@ CaseTab:CreateDropdown({
     end,
 })
 
-
 local FarmTab = Window:CreateTab("Авто-Фарм", 4483362458)
 FarmTab:CreateSection("Автоматизация")
 
@@ -159,25 +150,6 @@ FarmTab:CreateToggle({
        end
    end,
 })
-
-FarmTab:CreateToggle({
-   Name = "Авто-продажа (каждую секунду)",
-   CurrentValue = false,
-   Callback = function(State)
-       isAutoSell = State
-       if isAutoSell then
-           task.spawn(function()
-               local Remote = GetRemote()
-               if not Remote then return end
-               while isAutoSell do
-                   Remote:FireServer("SellItem", {}, nil)
-                   task.wait(1)
-               end
-           end)
-       end
-   end,
-})
-
 
 local MoveTab = Window:CreateTab("Читы Движения", 4483362458)
 MoveTab:CreateSection("⚠️ Осторожно! Если игра обновится и добавят АК, могут забанить.")
@@ -210,7 +182,6 @@ MoveTab:CreateToggle({
        
        if isFlying then
            if hrp and humanoid then
-               
                humanoid.PlatformStand = true
                local bodyVelocity = Instance.new("BodyVelocity")
                bodyVelocity.Name = "FlyVelocity"
